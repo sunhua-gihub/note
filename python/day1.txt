@@ -1,0 +1,311 @@
+一、python基础  变量与数据类型，常见数据类型的用法
+
+puthon介绍
+
+python特性
+1.python语法简单，容易理解，容易学习
+2.跨平台，可在windows/linux/mac os等系统上运行
+3.可以做网站，爬虫，大数据处理，机器学习
+4.拥有强大、丰富的第三方库  numpy、pandas....
+
+最简单的开始
+print('hello world')       #打印hello world
+import this                  #打印python之禅
+
+从计算器开始
+5 + 100
+100 - 5
+100  / 10
+100 * 10
+10 % 3
+10 ** 3
+import  math
+math.pi
+math.sin(math.pi / 2)
+math.floor(9.2345)
+math.ceil(9.234)
+
+应用题
+小姐姐去买水果，苹果5块元一斤，葡萄15元一斤，现在小姐姐买了2斤苹果，1.5斤葡萄，问：
+小姐姐买这两种水果分别花了多少钱？总共花了多少钱？
+
+#苹果的花费
+print(5*2)
+#苹果的花费
+print(15*1.5)
+#苹果的花费
+print(5*2 +15*1.5 )
+
+三个问题
+1.如果脱离了题干和注释，我们无法理解5*2是什么意思
+2.当计算总价的时候，重复计算了苹果和葡萄的花费
+3.输出是一个数字，表达不清晰
+
+apple_price = 5
+apple_weight = 2
+apple_cost = apple_price * apple_weight 
+
+grape_price = 15
+grape_weight = 1.5
+grape_cost = grape_price * grape_weight 
+
+total_cost = apple_cost  + grape_cost 
+
+print(apple_cost, grape_cost ,total_cost )
+
+#增强的格式化字符串函数format
+"苹果的花费：{}; 葡萄的花费：{}; 总花费为：{}".format(apple_cost, grape_cost ,total_cost)
+
+变量
+代表某个值的名称
+语法糖
+a = 10
+b = 20
+a,b = b,a
+ptint("a is {},b is {}".format(a,b))
+命名规范
+1.标识符的第一个字符必须是字母表中的字母（大写或小写）或者一个下划线
+2.标识符名称的其他部分可以由字母（大写或小写）、下划线（'_'）或数字（0-9）组成
+3.标识符名称是对大小写敏感的
+
+round(100 / 3, 3)  #保留3位小数
+
+代码规范建议
+1.不要使用单字符
+2.变量名能清晰表达变量的意思
+3.合理使用字母中间的下划线
+
+变量类型
+1.字符串 str
+2.数字 int float complex ..
+3.列表 list 
+4.元组 tuple
+5.字典 dict
+
+import math
+#乘方、开放运算
+math.pow（3,10）   # 3**10
+#度的转换
+math.radians(180)
+#最大值
+max(10,12,234,100,1)
+#最小值
+min(10,12,234,100,1)
+#总和
+sum([10,12,234,100,1])
+#商和余数
+divmod(10,3)
+
+bool类型
+True False
+bool类型的运算： 与运算、或运算、非运算
+1. 与运算，同为真则真
+True and False
+2.或运算，只要一个为真则为真
+True or False
+3.非运算,取反
+not False
+
+字符串
+字符串可以用双引号，也可以用单引号。
+通过单、双引号的恰当使用，可以避免不必要的字符转义，也就是说可以避免使用\(转义字符)
+line = 'hello i\'am james'
+line = "hello i'am james"
+
+#字符串加法操作
+line_1 = "ni hao,"
+line_2 = "xiaoming."
+line_1 + line_2
+#字符串乘法操作
+line = "ni hao "
+line *3
+#返回字符串的长度
+len(line)
+
+#字符串是不可变类型的变量
+line = 'ni hao'
+line_copy = line
+id(line)                  #返回一个身份识别符，可以理解为一个变量的内存地址
+id(line_copy) 
+line = 'buhao'
+id(line)
+
+切片
+line = 'huan ying da jia lai wan men shang ke'
+#取前10个字符
+line[:10](或line[0:10])      “”左闭右开“”
+#取后10个字符
+line[-10：]
+#取单字符
+line[1]
+#翻转字符
+line[::-1]
+
+注：单字符是不可以赋值的
+line[-1] = 'E'   #此句报错
+
+
+常用字符串函数
+line.capitalize()   #将第一个字符大写，其他字符均为大写
+
+line.center(20)    #将字符串居中并打印（字符串长度为20）
+line.center(20，'%')   #不加字符串默认是空格补全，此就是用%替代空格补全
+
+line.count('w')  #计算w在line中出现的次数
+
+line.endswith（'huan'）  #判断字符串是否以huan结尾
+line.startswith（'huan'） #判断字符串是否以huan开头
+
+line.find('h')  #查找字符串并返回下标，当字符串不存在时返回-1
+line.index('h')  #查找字符串并返回下标，当字符不存在时报错
+
+line.upper()  #将所有字符大写
+line.lower()  #将所有字符小写
+line.swapcase()  #大写变小写，小写变大写
+
+line.istitle()   #判断line是否是标题（首字符大写，其他字符均为小写）
+line.isupper()  #判断所有字符是否都为大写
+line.islower()  #判断所有字符是否都为小写
+
+line = '     ldads       \n\t'
+line.strip()   #去除两端的空格或者制表符、换行符等无效字符
+line.rstrip()  #去除右边的空格或者制表符、换行符等无效字符
+line.rstrip()  #去除左边的空格或者制表符、换行符等无效字符
+
+上面我们用到的所有字符串函数，都是为我们生成了一个新的字符串，原有的字符串是不变的
+line = ‘hello,jeams’
+id(line)
+new_line = line.upper()
+id(line),id(new_line)
+
+列表
+#空列表
+varibals = [ ]
+varibals = list()
+
+列表可以容纳任意类型的对象，任意数量的对象
+varibals  = [1,2,3,'ni hao','python',[ ],[100,100]]
+重点：列表是可变类型
+varibals  = [ ]
+varibals.append(1) 
+varibals.append(2) 
+varibals.append('ni hao')
+varibals  
+
+python是一种动态类型的语言，一个变量是什么类型，要看程序在运行过程中变量所代表的值是什么
+var= 10
+type(var)
+var = 'str'
+type(var)
+
+切片
+varibals[-2:]
+varibals + [1,23]
+varibals * 4
+
+序列：字符串和列表的统称
+列表是一种容器型的序列
+字符串是一种扁平型的序列
+
+
+列表的常见操作
+len(varibals)
+#没有返回值，而是修改了列表对象本身
+varibals.append(1) 
+#清空列表
+varibals.clear()
+#复制
+varibals.copy()
+
+varibals = [1,12,23,154,[1,2]]
+new_varibals = varibals.copy()
+id(varibals)， id(new_varibals)
+new_varibals[-1][0] = 222
+new_varibals
+varibals
+id(varibals[-1])， id(new_varibals[-1])
+从上述代码说明了copy()进行的是浅复制
+
+a = [1,2]
+b = [3,4]
+a + b
+
+a.extend(b)  #相当于a+b
+a
+
+a.insert(0,100)  #在列表下标为0的位置插入100这个数据
+a
+
+a.pop()   #弹出列表最后一个数据
+a.pop(0)  #弹出列表下标为0的数据
+
+a.remove(3)  #删除列表里的第一个3
+a.sort() #翻转列表数据
+a.sort(reverse=True) #reverse是否翻转
+5 in a #判断5是否存在于列表
+
+
+元组tuple
+不可变类型的列表
+var = tuple()
+var = ( )
+type(var)
+
+var = (1,2,1,3,4,5,[23,34,56])
+var.count(1）
+var.index(2)
+
+a = 10,20
+
+字典类型
+var = { }
+var = dict()
+type(var)
+
+var ={
+   '中':100,
+   '左':200
+}
+
+var['中']
+
+words = ['中','左']
+location = [100,200]
+
+location[words.index('中')]
+
+拉锁函数
+new_var = list(zip(word,location))
+new_var
+
+dict(new_var)
+
+list(zip([1,2],[3,4,5],[6,7,8]))
+
+students = ['wang','li','sun','zhao','qian']
+money = dict.fromkeys(students,10)
+
+访问字典中的值
+money['wang']
+a = money.get('ww','100')
+print(a)
+
+money.keys()
+money.values()
+money.items()
+
+#删除操作
+money.pop('wang')
+#增加
+money['wang'] = 100
+money['gu'] = 1000
+#赋值
+money.setdefault('qian',100)
+money.setdefault('wu',100)
+
+
+
+
+
+
+

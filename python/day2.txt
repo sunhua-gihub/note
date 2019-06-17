@@ -1,0 +1,328 @@
+二、python基础  条件、循环、函数、类
+条件判断
+应用题：小姐姐卖水果，合计金额32.5元，超市搞活动，超过30元打九折，求小姐姐的实际花费？
+total_cost = 32.5
+if total_cost > 30:
+	discount = 0.9
+else:
+	discount = 1
+total_cost *= discount
+print('小姐姐的实际花费为：{}元'.format(total_cost))
+
+
+应用题：如果购买水果消费超过30元，打九折，超过50元，打八折，求小姐姐的实际花费？
+total_cost = 32.5
+if total_cost > 50:
+	discount = 0.9
+elif total_cost > 30:
+	discount = 0.8
+else:
+	discount = 1
+total_cost *= discount
+print('小姐姐的实际花费为：{}元'.format(total_cost))
+
+重点
+1.条件判断可以任意组合
+     第一层意思：elif可以有0到任意多个，else可有可无
+     第二层意思：条件判断可以进行嵌套
+2.着重来看看一下condition
+
+bool(' '),bool({ }),bool([ ])
+
+condition = { }
+if condition:
+	print('True')
+else:
+	print('False')
+从理解的角度来讲，一个值被当做布尔值，概念上更像是有与没有的区别
+
+布尔型变量做运算
+a = True
+b = False
+print('a and b is {}'.format(a and b))
+print('a or b is {}'.format(a or b))
+
+非布尔型变量做运算
+a = 'hello world'
+b = [1,2,3]
+print('a and b is {}'.format(a and b))
+print('a or b is {}'.format(a or b))
+print(not b)
+非布尔型的变量做not运算，永远返回True或者False
+
+条件判断的近亲-----断言
+age = 19
+assert age == 18 ,'她竟然不是18岁'
+
+循环
+for循环        --遍历循环
+while循环     --条件循环
+
+cost = [3,4,12,23,43,100]
+for cost in costs:
+	print('消费{}元'.format(str(cost).center(10)))
+
+生成一个长度为20的随机列表
+improt random
+
+random_numbers  = [ ]
+while len(random_numbers) < 20:
+	random_number.append(random.randint(1,10))
+
+print(random_numbers ,len(random_numbers))
+
+编程建议： 就是只要能使用for循环，就不要使用while循环
+improt random
+random_numbers  = [ ]
+for i in range(20):
+	random_number.append(random.randint(1,10))
+print(random_numbers ,len(random_numbers))
+
+当循环的条件跟数量没有关系时，只能用while
+题目：往空列表里添加随机数，如果添加的数为9，则终止
+improt random
+random_numbers  = [ ]
+while 9 not in random_numbers:
+	random_number.append(random.randint(1,10))
+print(random_numbers ,len(random_numbers))
+
+#continue跳出单次循环
+for number in random_numbers:
+	if number % 2 ==0:
+		print('{} is 偶数'.format(number))
+	else:
+		print('跳过')
+		continue
+
+	print('没有跳过')
+
+#break 跳出总循环
+for number in random_numbers:
+	if number % 2 ==0:
+		print('{} is 偶数'.format(number))
+	else:
+		print('结束')
+		break
+
+	print('没有结束')
+
+循环里的else
+如果在循环过程中没有碰到break语句，就会执行else里的代码
+random_numbers = [4,2,4]
+for number in random_numbers:
+	if number % 2 ==0:
+		print('{} is 偶数'.format(number))
+	else:
+		print('结束')
+		break
+
+	print('没有结束')
+else:
+	print("全是偶数")
+
+for循环可以构建推导式
+#所谓推导式，就是一种从一个数据序列构建另一个数据序列的方法
+random_numbers = list(range (10))
+new_numbers = [ ]
+for number in random_numbers:
+	new_numbers.append(number * 10)
+print(new_numbers)
+
+#构建列表推导式
+new_numbers = [number*10 for number in random_numbers]
+print(new_numbers)
+#构建字典推导式
+dict_numbers = {number: 'A' for number in random_numbers}
+print(dict_numbers)
+#构建元组推导式
+tuple_numbers = (number*10 for number in random_numbers)
+tuple(tuple_numbers)  #生成器,只能生成一次
+
+
+
+函数
+--抽象概念
+
+varibal = {
+    'a':100,
+    'b':100,
+    'c':200
+}
+varibal['a']  #打印a对应的value值
+[key for key,value in varibal.itemds() if value == 100]  #打印value值为100对应的key值
+
+#根据value值返回字典中的key值
+def get_keys(dict_varibal,value):
+	return [key for key,v in varibal.itemds() if v == value]
+get_keys(varibal,200)
+
+函数是组织好的，可以重复使用的，能够完成特定功能的代码块，它是代码块的抽象
+
+
+函数解析
+def get_keys(dict_varibal,value):
+	return [key for key,v in varibal.itemds() if v == value]
+
+--get_keys 函数名
+--（）中为参数；dict_varibal：形参，调用的时候传递的值才是实参 
+--return是返回值
+
+1.位置参数（不可交换位置）
+get_keys(varibal,200)
+
+2.关键字参数（可交换位置）
+get_keys(dict_varibal = varibal,value = 200)
+
+函数通过参数获取我们传递的值，函数中改变了参数的值，那么我们传进去的值会改变吗？
+def test(varibal):
+	varibal = 100
+	return varibal
+var = 1
+test(var)  #输出100
+print(var) #输出1
+没有改变
+
+def test(varibal):
+	varibal.append(100)
+	return varibal
+var = [ ]
+test(var)   #输出[100]
+print(var) #输出[100]
+发生改变
+
+不建议对可变类型在函数内部进行更改，建议用函数返回值重新赋值
+def test(varibal):
+	temp = varibal.copy()
+	temp.append(100)
+	return temp
+var = [ ]
+var = test(var)
+print(var)
+
+
+参数的收集
+#*args用来收集未知参数，**kwargs用来收集关键字参数
+def test(name,age,*args,**kwargs):
+	print(name,age,*args,**kwargs)
+test('wong',12)
+test('wong',12,'lkl',[23,34])
+dict_varibals = {
+	'weight':120,
+	'height':175
+}
+test('wong',12,dict_varibals)
+
+装饰器
+a = 10
+b = 'hello'
+def test():
+	print('test')
+c = test
+可以把函数赋值给一个变量
+c.__name__
+
+
+def test(func):
+	return func
+
+def func():
+	print('func run')
+
+f = test(func)
+f.__name__
+f( )
+函数可以当做函数的返回值进行返回
+
+#返回一个从0到1的浮点值
+def test();
+	return random.random()
+#要求函数返回的浮点值保留三个有效数字
+def test();
+	return round(random.random(),3)
+test()
+
+
+python另一个语法糖，装饰器
+
+#返回一个从0到1的浮点值
+@decorator
+def test();
+	return random.random()
+#返回一个从0到10的浮点值
+@decorator
+def test_two();
+	return random.random()*10
+
+def decorator():
+	def wrapper(*args,**kwards):
+		#do something
+		return round(func(*args,**kwards),2)
+	return wraper
+
+#f = decorator(test) 该句完全等价于装饰器@的写法
+#f.__name__
+
+test()
+test_two()
+		
+
+类
+class Person:
+	def __init__(self,name,age):
+		self._name = name
+		self._age    = age
+
+	def get_name(self):
+		return self._name
+	
+	def rename(self,new_name):
+		self._name = new_name
+初始化函数中，self后面的是实例化对象的属性，加下划线的意思是代表这个属性是私有的，不应该访问
+
+
+s = 'hello world'
+s.center(12)
+
+p = Person('wong',12)
+p.get_name()
+
+p_2 = Person('li',11)
+p_2.get_name()
+
+p.rename('wong lei')
+p.get_name()
+
+#继承
+class Student(Person):   
+	#pass   #pass代表什么都不做，只是占个位而已
+	def set_score(self,score):
+		self._score = score
+	
+	def get_score(self):
+		return self._score
+
+s = Student('liu',24)
+s.get_name()
+
+s.set_score(100)
+s.get_score()
+ 
+	
+#属性
+class Person:
+	def __init__(self,name,age):
+		self._name = name
+		self._age    = age
+
+	@property
+	def get_name(self):
+		return self._name
+	
+	def rename(self,new_name):
+		self._name = new_name
+
+p = Person('liu',24)
+p.get_name
+
+
+

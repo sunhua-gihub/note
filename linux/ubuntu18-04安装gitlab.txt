@@ -57,6 +57,9 @@
 
 其他
 
+linux 设置软件源
+	sudo update-manager -c -d
+
 gtilab部分命令
 
 停止

@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PersonManage</class>
+ <widget class="QDialog" name="PersonManage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>588</width>
+    <height>379</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_4">
+   <item row="1" column="0" colspan="2">
+    <widget class="QWidget" name="widget_4" native="true">
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="0">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>306</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="getpicbtn">
+        <property name="text">
+         <string>获取图片</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QPushButton" name="cannelbtn">
+        <property name="text">
+         <string>关闭</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QPushButton" name="confirmbtn">
+        <property name="text">
+         <string>确认</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>人员信息</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="1" column="2">
+       <widget class="QLabel" name="PersonManage_formername">
+        <property name="text">
+         <string>备用名称</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="PersonManage_name">
+        <property name="text">
+         <string>名字</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="3">
+       <widget class="QDateTimeEdit" name="PersonManage_startTimeEdit">
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+        <property name="displayFormat">
+         <string>yyyy-MM-dd HH:mm:ss</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QLabel" name="PersonManage_startTime">
+        <property name="text">
+         <string>开始时间</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLineEdit" name="PersonManage_formernameEdit"/>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="PersonManage_type">
+        <property name="text">
+         <string>名单类型</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QLabel" name="PersonManage_limitTime">
+        <property name="text">
+         <string>有效期</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="PersonManage_nameEdit"/>
+      </item>
+      <item row="2" column="3">
+       <widget class="QWidget" name="limitTimebox" native="true">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QRadioButton" name="foreverrbtn">
+           <property name="text">
+            <string>永久</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="deadlinerbtn">
+           <property name="text">
+            <string>期限</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QWidget" name="typebox" native="true">
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QRadioButton" name="whiterbtn">
+           <property name="text">
+            <string>白</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="blackrbtn">
+           <property name="text">
+            <string>黑</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="viprbtn">
+           <property name="text">
+            <string>VIP</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="4" column="3">
+       <widget class="QDateTimeEdit" name="PersonManage_endTimeEdit">
+        <property name="displayFormat">
+         <string>yyyy-MM-dd HH:mm:ss</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="PersonManage_nation">
+        <property name="text">
+         <string>民族</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="PersonManage_id">
+        <property name="text">
+         <string>ID</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="PersonManage_idEdit"/>
+      </item>
+      <item row="4" column="2">
+       <widget class="QLabel" name="PersonManage_endTime">
+        <property name="text">
+         <string>结束时间</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="QLineEdit" name="PersonManage_labelEdit"/>
+      </item>
+      <item row="9" column="3">
+       <widget class="QLineEdit" name="PersonManage_data5Edit"/>
+      </item>
+      <item row="9" column="2">
+       <widget class="QLabel" name="PersonManage_data5">
+        <property name="text">
+         <string>自定义信息5</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0">
+       <widget class="QLabel" name="PersonManage_label">
+        <property name="text">
+         <string>标签</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="3">
+       <widget class="QLineEdit" name="PersonManage_data4Edit"/>
+      </item>
+      <item row="7" column="2">
+       <widget class="QLabel" name="PersonManage_data3">
+        <property name="text">
+         <string>自定义信息3</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="3">
+       <widget class="QLineEdit" name="PersonManage_data2Edit"/>
+      </item>
+      <item row="6" column="1">
+       <widget class="QLineEdit" name="PersonManage_birthdayEdit"/>
+      </item>
+      <item row="5" column="3">
+       <widget class="QLineEdit" name="PersonManage_data1Edit"/>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="PersonManage_birthday">
+        <property name="text">
+         <string>生日</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QLineEdit" name="PersonManage_nationEdit"/>
+      </item>
+      <item row="7" column="3">
+       <widget class="QLineEdit" name="PersonManage_data3Edit"/>
+      </item>
+      <item row="5" column="2">
+       <widget class="QLabel" name="PersonManage_data1">
+        <property name="text">
+         <string>自定义信息1</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="2">
+       <widget class="QLabel" name="PersonManage_data2">
+        <property name="text">
+         <string>自定义信息2</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="0">
+       <widget class="QLabel" name="PersonManage_address">
+        <property name="text">
+         <string>地址</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="1">
+       <widget class="QLineEdit" name="PersonManage_addressEdit"/>
+      </item>
+      <item row="8" column="2">
+       <widget class="QLabel" name="PersonManage_data4">
+        <property name="text">
+         <string>自定义信息4</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="PersonManage_sex">
+        <property name="text">
+         <string>性别</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QWidget" name="sexbox" native="true">
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QRadioButton" name="manrbtn">
+           <property name="text">
+            <string>男</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="womanrbtn">
+           <property name="text">
+            <string>女</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="PersonManage_idcard">
+        <property name="text">
+         <string>ID卡</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="PersonManage_idcardEdit"/>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="PersonManage_phone">
+        <property name="text">
+         <string>联系方式</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QLineEdit" name="PersonManage_phoneEdit"/>
+      </item>
+      <item row="9" column="0">
+       <widget class="QLabel" name="PersonManage_pic">
+        <property name="text">
+         <string>图片</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="1">
+       <widget class="QLineEdit" name="PersonManage_picEdit"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="devbox">
+     <property name="title">
+      <string>设备信息</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="PersonManage_sessionEdit"/>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="PersonManage_session">
+        <property name="text">
+         <string>注册会议</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QLineEdit" name="PersonManage_Code2Edit"/>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="PersonManage_channelEdit"/>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="PersonManage_Code1Edit"/>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="PersonManage_Code1">
+        <property name="text">
+         <string>自定义编码1</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="PersonManage_channel">
+        <property name="text">
+         <string>通道号</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="PersonManage_Code2">
+        <property name="text">
+         <string>自定义编码2</string>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="1">
+       <widget class="QLineEdit" name="PersonManage_Param5Edit"/>
+      </item>
+      <item row="7" column="0">
+       <widget class="QLabel" name="PersonManage_Param2">
+        <property name="text">
+         <string>自定义参数2</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="PersonManage_Param1">
+        <property name="text">
+         <string>自定义参数1</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="QLineEdit" name="PersonManage_Param2Edit"/>
+      </item>
+      <item row="10" column="0">
+       <widget class="QLabel" name="PersonManage_Param5">
+        <property name="text">
+         <string>自定义参数5</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="0">
+       <widget class="QLabel" name="PersonManage_Param3">
+        <property name="text">
+         <string>自定义参数3</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QLineEdit" name="PersonManage_Code3Edit"/>
+      </item>
+      <item row="9" column="0">
+       <widget class="QLabel" name="PersonManage_Param4">
+        <property name="text">
+         <string>自定义参数4</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="PersonManage_Code3">
+        <property name="text">
+         <string>自定义编码3</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QLineEdit" name="PersonManage_Param1Edit"/>
+      </item>
+      <item row="9" column="1">
+       <widget class="QLineEdit" name="PersonManage_Param4Edit"/>
+      </item>
+      <item row="8" column="1">
+       <widget class="QLineEdit" name="PersonManage_Param3Edit"/>
+      </item>
+     </layout>
+     <zorder>PersonManage_Param5Edit</zorder>
+     <zorder>PersonManage_Param1</zorder>
+     <zorder>PersonManage_channel</zorder>
+     <zorder>PersonManage_Param3</zorder>
+     <zorder>PersonManage_channelEdit</zorder>
+     <zorder>PersonManage_Param4Edit</zorder>
+     <zorder>PersonManage_Param1Edit</zorder>
+     <zorder>PersonManage_Code1Edit</zorder>
+     <zorder>PersonManage_Param4</zorder>
+     <zorder>PersonManage_Param2Edit</zorder>
+     <zorder>PersonManage_session</zorder>
+     <zorder>PersonManage_Code3</zorder>
+     <zorder>PersonManage_Code2</zorder>
+     <zorder>PersonManage_Param3Edit</zorder>
+     <zorder>PersonManage_Param5</zorder>
+     <zorder>PersonManage_sessionEdit</zorder>
+     <zorder>PersonManage_Param2</zorder>
+     <zorder>PersonManage_Code3Edit</zorder>
+     <zorder>PersonManage_Code1</zorder>
+     <zorder>PersonManage_Code2Edit</zorder>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>PersonManage_sessionEdit</tabstop>
+  <tabstop>PersonManage_channelEdit</tabstop>
+  <tabstop>PersonManage_Code1Edit</tabstop>
+  <tabstop>PersonManage_Code2Edit</tabstop>
+  <tabstop>PersonManage_Code3Edit</tabstop>
+  <tabstop>PersonManage_Param1Edit</tabstop>
+  <tabstop>PersonManage_Param2Edit</tabstop>
+  <tabstop>PersonManage_Param3Edit</tabstop>
+  <tabstop>PersonManage_Param4Edit</tabstop>
+  <tabstop>PersonManage_Param5Edit</tabstop>
+  <tabstop>PersonManage_idEdit</tabstop>
+  <tabstop>PersonManage_nameEdit</tabstop>
+  <tabstop>manrbtn</tabstop>
+  <tabstop>womanrbtn</tabstop>
+  <tabstop>PersonManage_idcardEdit</tabstop>
+  <tabstop>PersonManage_phoneEdit</tabstop>
+  <tabstop>PersonManage_nationEdit</tabstop>
+  <tabstop>PersonManage_birthdayEdit</tabstop>
+  <tabstop>PersonManage_labelEdit</tabstop>
+  <tabstop>PersonManage_addressEdit</tabstop>
+  <tabstop>PersonManage_picEdit</tabstop>
+  <tabstop>whiterbtn</tabstop>
+  <tabstop>blackrbtn</tabstop>
+  <tabstop>viprbtn</tabstop>
+  <tabstop>PersonManage_formernameEdit</tabstop>
+  <tabstop>foreverrbtn</tabstop>
+  <tabstop>deadlinerbtn</tabstop>
+  <tabstop>PersonManage_startTimeEdit</tabstop>
+  <tabstop>PersonManage_endTimeEdit</tabstop>
+  <tabstop>PersonManage_data1Edit</tabstop>
+  <tabstop>PersonManage_data2Edit</tabstop>
+  <tabstop>PersonManage_data3Edit</tabstop>
+  <tabstop>PersonManage_data4Edit</tabstop>
+  <tabstop>PersonManage_data5Edit</tabstop>
+  <tabstop>getpicbtn</tabstop>
+  <tabstop>cannelbtn</tabstop>
+  <tabstop>confirmbtn</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,202 @@
+﻿链表分类 ：
+	1. 单向链表
+	2. 双向链表
+	3. 循环链表
+	4，内核链表
+
+单向链表:
+	typedef struct Singly_linked_list {
+		void *data;
+		int data_size;
+		SinglyLinkedList_S *next;
+	}SinglyLinkedList_S;
+	
+双向链表:
+	typedef struct Double_linked_list {
+		void *data;
+		int data_size;
+		DoubleLinkedList_S *next;
+		DoubleLinkedList_S *prev;
+	}DoubleLinkedList_S;
+	
+循环链表:
+	就是最后一节点接到头节点上  这种情况已经形成一个环了
+	
+内核链表:  
+	由上面的例子可以看出每个节点的数据结构体都是一样的，为了达到每个节点都可以任意结构，实现方法如下
+	typedef struct Kernel_list {
+		KernelList_S *next;
+		KernelList_S *prev;
+	}KernelList_S;
+	
+	typedef struct Own_struct_list {
+		//...any data what you want
+		KernelList_S KList;
+	}OwnStructList_S;
+
+###!!! 注意以下函数只作说明用，没有做任何的出错判断，实际应用是一定要加上
+
+链表的插入:
+	SinglyLinkedList:
+		=====================================================
+		#	[node1]--->[node2]--->[node3] ...				#
+		#													#
+		#	[newnode]--->									#
+		#													#
+		#	将newnode 插入到 node1 和 node2 中间			#
+		#	1. newnode->next = node1->next;					#
+		#		[node1]--->[node2]--->[node3] ...			#
+		#					  ↑								#
+		#		[newnode]-----								#
+		#	2. node1->next = newnode->next;					#
+		#		[node1]    [node2]--->[node3] ...			#
+		#			↓		  ↑								#
+		#		[newnode]-----								#
+		#	完成。											#
+		=====================================================
+	
+		void insert_SinglyLinkedList(SinglyLinkedList_S *head,SinglyLinkedList_S *newnode,int pos) {
+		
+			SinglyLinkedList_S *temp = head;
+			while(pos--) {
+				temp = temp->next;
+			}
+			newnode->next = temp->next;
+			temp->next = newnode;
+		}
+		
+	DoubleLinkedList:
+		=====================================================
+		#	[node1]--->[node2]--->[node3] ...				#
+		#		   <---       <---							#
+		#	<---[newnode]--->								#
+		#													#
+		#	将newnode 插入到 node1 和 node2 中间			#
+		#	1. newnode->next = node1->next;					#
+		#		[node1]--->[node2]--->[node3] ...			#
+		#		   	   <---   ↑   <---						#
+		#	<---[newnode]----- 								#
+		#													#
+		#	2. newnode->prev = node1;						#
+		#		[node1]--->[node2]--->[node3] ...			#
+		#		↑      <---   ↑   <---						#
+		#		---[newnode]---								#
+		#													#
+		#	3. node2->prev = newnode;						#
+		#		[node1]--->[node2]--->[node3] ...			#
+		#		↑      		  ↓ ↑   <---					#
+		#		---[newnode]---								#
+		#													#
+		#	4. node1->next = newnode;						#
+		#		[node1]    [node2]--->[node3] ...			#
+		#		↑  ↓   		  ↓ ↑   <---					#
+		#		---[newnode]---								#
+		#	完成。											#
+		=====================================================
+		void insert_DoubleLinkedList(DoubleLinkedList_S *head,DoubleLinkedList_S *newnode,int pos) {
+						
+			DoubleLinkedList_S *temp = head;
+			while(pos--) {
+				temp = temp->next;
+			}
+			
+			newnode->next = head->next;
+			newnode->prev = head;
+			head->next->prev = newnode;
+			head->next = newnode;
+		}
+		
+链表的删除:
+	SinglyLinkedList:
+		=====================================================
+		#	[node1]--->[node2]--->[node3] ...				#
+		#													#
+		#	删除node2,需要一个指针指向node2 (*delnode)		#
+		#	1. delnode = node2								#
+		#		[node1]--->[node2]--->[node3] ...			#
+		#					  ↑								#
+		#				[*delnode]							#
+		#													#
+		#	2. node1->next = node2->next;					#
+		#			↑--------------------↓					#
+		#		[node1]    [node2]--->[node3] ...			#
+		#					  ↑								#
+		#				[*delnode]							#
+		#													#
+		#	3. node2->next = NULL;							#
+		#			↑--------------------↓					#
+		#		[node1]    [node2]--- [node3] ...			#
+		#					  ↑		↓						#
+		#				[*delnode] NULL						#
+		#	4. free(delnode) 释放空间						#
+		#	完成。											#
+		=====================================================
+
+		void delete_SinglyLinkedList(SinglyLinkedList_S *head,int pos) {
+		
+			SinglyLinkedList_S *delnode = head;		
+			SinglyLinkedList_S *temp = NULL;
+
+			while(pos--) {
+				temp = delnode;
+				delnode = delnode->next;
+			}
+			
+			temp->next = delnode->next;
+			delnode->next = NULL;
+			free(delnode);
+		}
+		
+	DoubleLinkedList:
+		=====================================================
+		#	[node1]--->[node2]--->[node3] ...				#
+		#		   <---       <---							#
+		#													#
+		#	删除node2,需要一个指针指向node2 (*delnode)		#
+		#	1. delnode = node2								#
+		#		[node1]--->[node2]--->[node3] ...			#
+		#		   	   <---   ↑   <---						#
+		#	<---[newnode]----- 								#
+		#													#
+		#	2. node1->next = node2->next;					#
+		#			↑--------------------↓					#
+		#		[node1]    [node2]--->[node3] ...			#
+		#		       <---   ↑   <---						#
+		#				[delnode]							#
+		#													#
+		#	3. node3->prev = node1;							#
+		#			↑--------------------↓					#
+		#		[node1]    [node2]--->[node3] ...			#
+		#		↑      <---   ↑   ↓---						#
+		#		        [delnode]							#
+		#		↑-----------------↓	    					#
+		#													#
+		#	4. node2->next = NULL,node2->prev = NULL;		#
+		#					 NULL							#
+		#					  ↑↑							#
+		#			↑--------------------↓					#
+		#		[node1]    [node2]    [node3] ...			#
+		#		↑             ↑   ↓---						#
+		#		        [delnode]							#
+		#		↑-----------------↓	    					#
+		#	5. free(delnode)								#
+		#	完成。											#
+		=====================================================
+		
+		void del_DoubleLinkedList(DoubleLinkedList_S *head,int pos) {
+						
+			SinglyLinkedList_S *delnode = head;		
+			SinglyLinkedList_S *temp = NULL;
+
+			while(pos--) {
+				temp = delnode;
+				delnode = delnode->next;
+			}
+			
+			temp->next = delnode->next;
+			delnode->next->prev = temp;
+			delnode->prev = NULL;
+			delnode->next = NULL;
+			free(delnode);
+		}
+

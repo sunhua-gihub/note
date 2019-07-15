@@ -1,0 +1,144 @@
+
+3.6 控制
+
+单个位的条件码寄存器
+	CF:进位标志	-----最近操作使最高位产生进位。用来检查无符号操作的溢出
+	ZF:零标志	-----最近操作得出结果为0
+	SF:符号标志	-----最近操作得到结果为负数
+	OF:溢出标志	-----最近操作导致补码溢出 正溢出或负溢出
+
+！	
+	移位操作: CF 最后一个被移出的位，OF=0；
+	XOR: CF=OF=0;
+	INC,DEC: 改变OF,ZF,不改变CF
+	
+##!!!	设置条件码指令:
+	CMP  S1  S2			比较指令    基于 SUB 指令 sub  S1  S2
+		cmpb			比较字节
+		cmpw			比较字
+		cmpl			比较双字
+		cmpq			比较四字
+	S1 = S2 时, 则ZF=1；
+	
+	TEST S1  S2			测试指令	基于 AND 指令 。。。。    检测负数零整数???
+		testb			测试字节
+		testw			测试字
+		testl			测试双字
+		testq			测试四字
+		
+条件码通常不会直接读取,而是使用SET指令
+	1).根据条件码的某种组合将一个字节设置成0或1。
+	2).根据条件码跳转到程序的某个位置。
+	3).有条件的传送数据。
+	
+
+##!!!	根据条件码设置一个字节为0或者1:
+	指令		同义名			效果					设置条件
+	sete  D		setz			D <- ZF					相同/零
+	setne D		setnz			D <- ~ZF				不相同/非零
+	sets  D						D <- SF					负数
+	setns D						D <- ~SF				非负数
+	有符号
+	setg  D		setnle			D <- ~(SF^OF)&~ZF		大于
+	setge D		setnl			D <- ~(SF^OF)			大于等于
+	setl  D		setnge			D <- SF^OF				小于
+	setle D		setng			D <- (SF^OF)|ZF			小于等于
+	无符号
+	seta  D		setnbe			D <- ~CF & ~ZF			大于
+	setae D		setnb			D <- ~CF				大于等于
+	setb  D		setnae			D <- CF					小于
+	setbe D		setna			D <- CF|ZF				小于等于
+	
+=====栗子	
+	movq $0,%rax    	->%rax=0;
+	jmp .L1		    	->goto .L1
+	movq (%rax),%rdx	->Null pointer dereference (skipped)
+.L1:
+	popq %rdx			->Jump target
+	========================================================
+	
+	jmp指令会跳过第三行。
+	直接跳转: jmp .xxx
+	间接跳转: jmp *%rax 用%rax中的值作为跳转目标
+			  jmp *(%rax) 用%rax中的值作为读地址，从内存中读取跳转目标
+			  
+##!!!	跳转指令
+	指令		同义名			跳转条件				说明
+	jmp Label					1						直接跳转
+	jmp *Operand				1						间接跳转
+以下是有条件跳转
+	je  Label 	jz				ZF						相等跳转
+	jne Label 	jnz				~ZF						不相等跳转
+	js  Label 					SF						负数跳转
+	jns Label 					~SF						非负数跳转
+	有符号
+	jg  Label 	jnle			~(SF^OF)&~ZF			大于跳转
+	jge Label 	jnl				~(SF^OF)				大于等于跳转	
+	jl  Label 	jnge			SF^OF					小于跳转
+	jle Label 	jng				(SF^OF)|ZF				小于等于跳转
+	无符号
+	ja  Label 	jnbe			~CF&~ZF					大于跳转
+	jae Label 	jnb				~CF						大于等于跳转
+	jb 	Label 	jnae			CF						小于跳转
+	jbe Label 	jna				CF|ZF					小于等于跳转
+	
+#他们会将目标指令的地址与紧跟在跳转指令后面那条指令的地址之间的差做编码。
+======栗子
+	0: 48 89 f8							movq %rdi,%rax			
+	3: eb 03							jmp .L2
+									.L3:
+	5: 48 d1 f8							sarq %rax3
+									.L2:
+	8: 48 85 c0							testq %rax,%rax		
+	b: 7f f8							jg .L3	
+	d: f3 c3							rep;ret		
+	=====================================================
+	指的是 0x03 的 03 和0x0b 的 f8。它是怎么计算的呢?
+	由目标地址减去当前指令的下一条指令地址 
+	0x08 - 0x05 = 0x03
+	0x03 - 0x0d = 0xf8  (向最高位前补了1)   1 0000 0011 - 0000 1011 = 1111 1000
+
+注意:
+	上述rep;ret 是为了避免ret指令成为条件跳转指令的目标，ret指令通过跳转指令到达时，处理器不能正确预测ret指令的目的。
+	所以加入rep 这样的空操作指令。
+	
+	实现 switch
+	原理: 使用跳转指令,而每一个case都存在一个跳转表中(数组),并且case的值就是数组的下标，这也是switch只能是整数且尽可能小。
+	
+	媒体寄存器
+	255		127		0
+	%ymm0	%xmm0		1st FP arg返回值
+	%ymm1	%xmm1		2ndFP参数
+	%ymm2	%xmm2		3rdFP参数	
+	%ymm3	%xmm3		4thFP参数
+	%ymm4	%xmm4		5thFP参数		
+	%ymm5	%xmm5		6thFP参数
+	%ymm6	%xmm6		7thFP参数	
+	%ymm7	%xmm7		8thFP参数
+	%ymm8	%xmm8		调用者保存	
+	%ymm9	%xmm9		调用者保存
+	%ymm10	%xmm10		调用者保存	
+	%ymm11	%xmm11		调用者保存
+	%ymm12	%xmm12		调用者保存		
+	%ymm13	%xmm13		调用者保存
+	%ymm14	%xmm14		调用者保存	
+	%ymm15	%xmm15		调用者保存
+	
+	浮点传送指令
+	指令		源		源2		目的			描述
+	vmovss		M32				X				传送单精度数
+	vmovss		X				M32				传送单精度数
+	vmovsd		M64				X				传送双精度数
+	vmovsd		X				M64				传送双精度数
+	vmovaps		M32				X				传送对齐的封装好的单精度数
+	vmovapd		M32				X				传送对齐的封装好的双精度数
+						
+	vcvttss2si 	X/M32 			R32				截断的方法把单精度数转换成整数
+	vcvttsd2si 	X/M64 			R32				截断的方法把双精度数转换成整数
+	vcvttss2siq	X/M32 			R64				截断的方法把单精度数转换成四字整数
+	vcvttsd2siq	X/M64 			R64				截断的方法把双精度数转换成四字整数
+	
+	vcvtsi2ss 	M32/R32 X		X				把整数转换成单精度数
+	vcvtsi2sd 	M32/R32	X		X				把整数转换成双精度数
+	vcvtsi2ssq 	M64/R64	X		X				把四字整数转换成单精度数
+	vcvtsi2sdq 	M64/R64	X		X				把四字整数转换成双精度数

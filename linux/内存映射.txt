@@ -50,3 +50,4 @@ int munmap(void *start, size_t length);
 		ETXTBSY：		已写的方式打开文件，同时指定MAP_DENYWRITE标志
 		SIGSEGV：		试着向只读区写入
 		SIGBUS：		试着访问不属于进程的内存区
+		

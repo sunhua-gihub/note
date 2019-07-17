@@ -1,5 +1,6 @@
 #include "gpio_manage.h"
 
+int s32AlarmTime = 3;
 int s32GPIOflag = 0;
 pthread_mutex_t s32GPIOflag_mutex;
 GPIOCallBackFuncHandle g_CallBackHandle = NULL;
@@ -135,6 +136,23 @@ int HisiGpioGetValue(int group,int pin)
     }
 }
 
+void s32GPIOflagMutexInit()
+{
+	pthread_mutex_init(&s32GPIOflag_mutex,NULL);
+}
+
+void Sets32AlarmTimeValue(int value)
+{
+	s32AlarmTime = value;
+}
+
+void Sets32GPIOflagValue(int value)
+{
+	pthread_mutex_lock(&s32GPIOflag_mutex);
+	s32GPIOflag = value;
+	pthread_mutex_unlock(&s32GPIOflag_mutex);
+}
+
 void RegisterCallBackFunc(GPIOCallBackFuncHandle func)
 {
 	g_CallBackHandle = func;
@@ -142,15 +160,25 @@ void RegisterCallBackFunc(GPIOCallBackFuncHandle func)
 
 void* DefaultCallBackFunc(void *argv)
 {
-	pthread_mutex_init(&s32GPIOflag_mutex, NULL);
+//	pthread_mutex_init(&s32GPIOflag_mutex, NULL);
 	int s32flag = 0;	//为了减少s32GPIOflag_mutex上锁时间
-	
+
 	//四路输出
-	HisiGpioDirCfg(17,5,1);	
-	HisiGpioDirCfg(17,4,1);	
-	HisiGpioDirCfg(17,3,1);	
-	HisiGpioDirCfg(14,0,1);	
-	
+#if defined(_USE_3559)
+	HisiGpioDirCfg(17,5,1);
+	HisiGpioDirCfg(17,4,1);
+	HisiGpioDirCfg(17,3,1);
+	HisiGpioDirCfg(14,0,1);
+#else
+	HisiGpioDirCfg(11,0,1);
+	HisiGpioDirCfg(11,1,1);
+	HisiGpioDirCfg(11,2,1);
+	HisiGpioDirCfg(11,3,1);
+	SetReg(0x120f0000 + 0x1d0, 0x00);
+	SetReg(0x120f0000 + 0x1d4, 0x00);
+	SetReg(0x120f0000 + 0x1d8, 0x00);
+	SetReg(0x120f0000 + 0x1dc, 0x00);
+#endif
 	while(1)
 	{
 		pthread_mutex_lock(&s32GPIOflag_mutex);
@@ -162,29 +190,43 @@ void* DefaultCallBackFunc(void *argv)
 		pthread_mutex_unlock(&s32GPIOflag_mutex);
 		if(s32flag == 1)
 		{
-			HisiGpioSetValue(17,5,1);	
-			HisiGpioSetValue(17,4,1);	
-			HisiGpioSetValue(17,3,1);	
-			HisiGpioSetValue(14,0,1);	
-			sleep(3);
-			HisiGpioSetValue(17,5,0);	
-			HisiGpioSetValue(17,4,0);	
-			HisiGpioSetValue(17,3,0);	
-			HisiGpioSetValue(14,0,0);	
-			
+#if defined(_USE_3559)
+			HisiGpioSetValue(17,5,1);
+			HisiGpioSetValue(17,4,1);
+			HisiGpioSetValue(17,3,1);
+			HisiGpioSetValue(14,0,1);
+			sleep(s32AlarmTime);
+			HisiGpioSetValue(17,5,0);
+			HisiGpioSetValue(17,4,0);
+			HisiGpioSetValue(17,3,0);
+			HisiGpioSetValue(14,0,0);
+#else
+			HisiGpioSetValue(11,0,1);
+			HisiGpioSetValue(11,1,1);
+			HisiGpioSetValue(11,2,1);
+			HisiGpioSetValue(11,3,1);
+			sleep(s32AlarmTime);
+			HisiGpioSetValue(11,0,0);
+			HisiGpioSetValue(11,1,0);
+			HisiGpioSetValue(11,2,0);
+			HisiGpioSetValue(11,3,0);
+			printf("i am hisi3536\n");
+#endif
 			s32flag = 0;
 		}
-		sleep(1);
+		sleep(2);
 	}
 //	pthread_mutex_destory(&s32GPIOflag_mutex);
 }
 
 int CreateGPIODealThread()
 {
-	if(g_CallBackHandle) {
+	if(g_CallBackHandle == NULL) {
 		printf("%s:<%s>[%d]Set the DefaultCallBackFunc!\n",__FILE__,__FUNCTION__,__LINE__);
 		g_CallBackHandle = DefaultCallBackFunc;
 	}
+	printf("g_CallBackHandle %p\n",g_CallBackHandle);
+	
 	pthread_t tid;
 
 	pthread_attr_t attr_record;
@@ -198,7 +240,7 @@ int CreateGPIODealThread()
 		pthread_attr_destroy(&attr_record);
 		return -1;
 	}
-
+	printf("Thread is start!\n");
 	pthread_attr_destroy(&attr_record);
 	
 	return 0;

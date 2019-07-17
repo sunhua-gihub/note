@@ -1,0 +1,109 @@
+.QWidget{
+background: #7D7D7D;
+}
+
+.QWidget[bcolor = "black"]{
+background: #000000;
+}
+
+.QDialog#PersonManage{
+background: #000000;
+}
+
+.QTextBrowser{
+background: #000000;
+color: #00FF00;
+}
+
+.QLabel{
+color: #FFFFFF;
+}
+
+QPushButton{
+border-style:none;
+color: #FFFFFF;
+border: 1px solid #DFDFDF;
+padding: 1px;
+width: 80px;
+height: 27px;
+border-radius: 5px;
+background:qlineargradient(spread:pad,x1:0,y1:0,x2:0,y2:1,stop:0 #646464,stop:1 #757575);
+}
+
+QToolButton{
+border-style:none;
+color: #FFFFFF;
+border: 1px solid #DFDFDF;
+padding: 1px;
+border-radius: 5px;
+background:qlineargradient(spread:pad,x1:0,y1:0,x2:0,y2:1,stop:0 #646464,stop:1 #757575);
+}
+
+QPushButton#minbtn,QPushButton#maxbtn,QPushButton#closebtn{
+border: 1px solid #DFDFDF;
+width: 32px;
+height: 32px;
+border-radius: 3px;
+}
+
+.QPushButton:checked{
+background:qlineargradient(spread:pad,x1:0,y1:0,x2:0,y2:1,stop:0 #343434,stop:1 #454545);
+}
+
+.QPushButton:hover,.QToolButton:hover{
+background:qlineargradient(spread:pad,x1:0,y1:0,x2:0,y2:1,stop:0 #343434,stop:1 #454545);
+}
+
+.QPushButton:pressed,.QToolButton:pressed{
+background:qlineargradient(spread:pad,x1:0,y1:0,x2:0,y2:1,stop:0 #454545,stop:1 #565656);
+}
+
+QPushButton#closebtn:hover{
+color:#FFFFFF;
+margin:1px 1px 2px 1px;
+background-color:rgba(238,0,0,128);
+}
+
+.QLineEdit,.QDateTimeEdit,.QDateEdit{
+background: #7D7D7D;
+border: 1px solid #DFDFDF;
+color: #FFFFFF;
+border-radius:3px;
+}
+
+.QLineEdit:focus,.QDateTimeEdit:focus,.QDateEdit:focus{
+background: #646464;
+border-radius:0px;
+}
+
+.QRadioButton{
+color: #FFFFFF;
+}
+
+.QComboBox{
+border: 1px solid #DFDFDF;
+background: #7D7D7D;
+color: #FFFFFF;
+border-radius:3px;
+}
+
+.QGroupBox{
+color: #FFFFFF;
+background: #000000;
+}
+
+.QTreeView{
+background: #ADADAD;
+}
+
+.QTreeView::item{
+color: #FFFFFF;
+}
+
+.QTreeView::item:hover{
+background:qlineargradient(spread:pad,x1:0,y1:0,x2:0,y2:1,stop:0 #949494,stop:1 #868686);
+}
+
+.QTreeView::item:selected{
+background:qlineargradient(spread:pad,x1:0,y1:0,x2:0,y2:1,stop:0 #737373,stop:1 #646464);
+}

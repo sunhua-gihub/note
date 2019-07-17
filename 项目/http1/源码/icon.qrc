@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icon/device.png</file>
+        <file>icon/titleclose.png</file>
+        <file>icon/titlemax.png</file>
+        <file>icon/titlemini.png</file>
+        <file>icon/JVTlogo.png</file>
+        <file>icon/list.png</file>
+        <file>icon/plan.png</file>
+        <file>icon/setting.png</file>
+        <file>icon/sign.png</file>
+        <file>icon/statis.png</file>
+        <file>icon/add_bottom.png</file>
+        <file>icon/add_top.png</file>
+        <file>icon/search.png</file>
+        <file>icon/skin.png</file>
+    </qresource>
+</RCC>

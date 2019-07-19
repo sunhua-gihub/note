@@ -1,0 +1,1 @@
+gcc -o client csapi.c csapi.h rioapi.c rioapi.h echoclient.c
